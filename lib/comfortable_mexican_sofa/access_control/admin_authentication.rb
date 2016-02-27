@@ -2,9 +2,8 @@ module ComfortableMexicanSofa::AccessControl
   module AdminAuthentication
     # Set username and password in config/initializers/comfortable_mexican_sofa.rb
     # Like this:
-    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'myname'
-    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'mypassword'
-
+    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication = 'myname'
+    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication = 'mypassword'
 
     mattr_accessor  :username,
                     :password
@@ -12,10 +11,14 @@ module ComfortableMexicanSofa::AccessControl
     # Simple http_auth. When implementing some other form of authentication
     # this method should return +true+ if everything is great, or redirect user
     # to some other page, thus denying access to cms admin section.
+
     def authenticate
-      authenticate_or_request_with_http_basic do |username, password|
-        self.username == username && self.password == password
+      if current_user
+        return true
+      else
+        redirect_to new_user_session_path
       end
     end
+
   end
 end

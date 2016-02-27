@@ -14,6 +14,8 @@ require 'coffee-rails'
 require 'codemirror-rails'
 require 'bootstrap-sass'
 require 'plupload-rails'
+require 'devise'
+require 'devise_invitable'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
