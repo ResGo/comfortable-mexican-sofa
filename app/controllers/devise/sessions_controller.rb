@@ -17,7 +17,7 @@ class Devise::SessionsController < DeviseController
     self.resource = warden.authenticate!(auth_options)
     # chceck site
     site = ::Comfy::Cms::Site.find_by(hostname: request.host_with_port)
-    if resource.role == 'admin' || (resource.role == "candidate_manager" && site.present? && resource.site_ids.include?(site.id))
+    if resource.role == 'admin'
       set_flash_message(:notice, :signed_in) if is_flashing_format?
       sign_in(resource_name, resource)
       yield resource if block_given?
